@@ -50,7 +50,7 @@
         </template>
       </li>
       <li>
-        <label for="Base Beverage">baseBeverage:</label>
+        <label for="Base Beverage">Base Beverage:</label>
         <template v-for="baseBeverage in baseBeverages" :key="baseBeverage">
           <label>
             <input
