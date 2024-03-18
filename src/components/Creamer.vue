@@ -1,18 +1,21 @@
 <template>
-  <div class="froth">
+  <div class="froth" :style="{ backgroundColor: creamerColor }">
     <div v-for=" in 5" class="foam"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
+
 type Prop = {
   name: string;
 };
+
 type Creamer = {
   name: string;
   color: string;
 };
+
 const Creamers: Creamer[] = [
   {
     name: "Milk",
@@ -31,7 +34,13 @@ const Creamers: Creamer[] = [
 const props = withDefaults(defineProps<Prop>(), {
   name: "Milk",
 });
+
+const creamerColor = computed(() => {
+  const selectedCreamer = Creamers.find(creamer => creamer.name === props.name);
+  return selectedCreamer ? selectedCreamer.color : '#000';
+});
 </script>
+
 <style lang="scss" scoped>
 .froth {
   overflow: visible;
@@ -42,6 +51,7 @@ const props = withDefaults(defineProps<Prop>(), {
   background-color: #c6c6c6;
   animation: pour-tea 2s 2s forwards;
 }
+
 .foam {
   display: block;
   background: #e4e0d2;

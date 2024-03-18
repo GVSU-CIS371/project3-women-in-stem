@@ -1,16 +1,19 @@
 <template>
-  <div class="syrup"></div>
+  <div class="syrup" :style="{ backgroundColor: syrupColor }"></div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
+
 type Prop = {
   name: string;
 };
+
 type Syrup = {
   name: string;
   color: string;
 };
+
 const Syrups: Syrup[] = [
   {
     name: "Vanilla",
@@ -28,6 +31,12 @@ const Syrups: Syrup[] = [
 
 const props = withDefaults(defineProps<Prop>(), {
   name: "Vanilla",
+});
+
+const syrupColor = computed(() => {
+  const selectedSyrup = Syrups.find(syrup => syrup.name === props.name);
+  return selectedSyrup ? selectedSyrup.color : '#456'; 
+
 });
 </script>
 <style lang="scss" scoped>
