@@ -1,6 +1,5 @@
 <template>
   <div :style="{ backgroundColor: baseColor }" class="baseBeverage">
-    {{  selectedBase }}
   </div>
 </template>
 
