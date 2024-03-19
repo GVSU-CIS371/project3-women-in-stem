@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<Prop>(), {
 });
 
 const selectedBase = computed(() => {
-  return Bases.find(base => base.name === name);
+  return Bases.find(base => base.name === props.name);
 });
 
 const baseColor = computed(() => {
