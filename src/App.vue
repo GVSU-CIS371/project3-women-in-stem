@@ -78,7 +78,7 @@ const Creamers = ref(["None", "Milk", "Cream", "Half & Half"]);
 const currentCreamer = ref("None");
 const Syrups = ref(["None", "Vanilla","Caramel", "Hazelnut"]);
 const currentSyrup = ref("None");
-const baseBeverages =ref(["Coffee", "Green Tea", "Back Tea"]);
+const baseBeverages =ref(["Coffee", "Green Tea", "Black Tea"]);
 const currentBaseBeverage= ref("Coffee");
 </script>
 
