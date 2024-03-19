@@ -17,7 +17,7 @@ type BaseBeverage = {
 
 const Bases: BaseBeverage[] = [
   {
-    name: "Black Tea",
+    name: "Back Tea",
     color: "#8B4513",
   },
   {
