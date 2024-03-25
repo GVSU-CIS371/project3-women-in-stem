@@ -1,87 +1,59 @@
 <template>
   <div>
-    <Beverage :isIced="currentTemp === 'Cold'" :creamer="currentCreamer" :syrup="currentSyrup" :beverage="currentBaseBeverage"/>
-    <ul>
-      <li>
-        <label for="temperature">Temperature:</label>
-        <template v-for="temp in temps" :key="temp">
-          
-          <label>
-            <input
-              type="radio"
-              name="temperature"
-              :id="`r${temp}`"
-              :value="temp"
-              v-model="currentTemp"
-            />
-            {{ temp }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <label for="Creamer">Creamer:</label>
-        <template v-for="creamer in Creamers" :key="creamer">
-          
-          <label>
-            <input
-              type="radio"
-              name="Creamer"
-              :id="`r${creamer}`"
-              :value="creamer"
-              v-model="currentCreamer"
-            />
-            {{ creamer }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <label for="Syrup">Syrup:</label>
-        <template v-for="syrup in Syrups" :key="syrup">
-          <label>
-            <input
-              type="radio"
-              name="Syrup"
-              :id="`r${syrup}`"
-              :value="syrup"
-              v-model="currentSyrup"
-            />
-            {{ syrup }}
-          </label>
-        </template>
-      </li>
-      <li>
-        <label for="Base Beverage">Base Beverage:</label>
-        <template v-for="baseBeverage in baseBeverages" :key="baseBeverage">
-          <label>
-            <input
-              type="radio"
-              name="Base Beverage"
-              :id="`r${baseBeverage}`"
-              :value="baseBeverage"
-              v-model="currentBaseBeverage"
-            />
-            {{ baseBeverage }}
-          </label>
-        </template>
-      </li>
-    </ul>
+    <Beverage
+      :isIced="store.currentTemp === 'Cold'"
+      :creamer="store.currentCreamer"
+      :syrup="store.currentSyrup"
+      :beverage="store.currentBaseBeverage"
+    />
+    <div class="beverage-form">
+      <div class="form-item">
+        <label for="temperature-select">Temperature:</label>
+        <select id="temperature-select" v-model="store.currentTemp">
+          <option v-for="temp in temps" :key="temp" :value="temp">{{ temp }}</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label for="creamer-select">Creamer:</label>
+        <select id="creamer-select" v-model="store.currentCreamer">
+          <option v-for="creamer in Creamers" :key="creamer" :value="creamer">{{ creamer }}</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label for="syrup-select">Syrup:</label>
+        <select id="syrup-select" v-model="store.currentSyrup">
+          <option v-for="syrup in Syrups" :key="syrup" :value="syrup">{{ syrup }}</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label for="base-select">Base Beverage:</label>
+        <select id="base-select" v-model="store.currentBaseBeverage">
+          <option v-for="base in baseBeverages" :key="base" :value="base">{{ base }}</option>
+        </select>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import Beverage from "./components/Beverage.vue";
+import { useBeverageStore } from './stores/beverages';
+import Beverage from './components/Beverage.vue';
 
-const temps = ref(["Hot", "Cold"]);
-const currentTemp = ref("Hot");
-const Creamers = ref(["None", "Milk", "Cream", "Half & Half"]);
-const currentCreamer = ref("None");
-const Syrups = ref(["None", "Vanilla","Caramel", "Hazelnut"]);
-const currentSyrup = ref("None");
-const baseBeverages =ref(["Coffee", "Green Tea", "Black Tea"]);
-const currentBaseBeverage= ref("Coffee");
+// Initialize the store
+const store = useBeverageStore();
+
+// Static lists for the options. These are constants and do not need to be reactive.
+const temps = ['Hot', 'Cold'];
+const Creamers = ['None', 'Milk', 'Cream', 'Half & Half'];
+const Syrups = ['None', 'Vanilla', 'Caramel', 'Hazelnut'];
+const baseBeverages = ['Coffee', 'Green Tea', 'Black Tea'];
+
+
+
 </script>
-
 <style lang="scss">
 body,
 html {
@@ -96,4 +68,39 @@ html {
 ul {
   list-style: none;
 }
+.dropdown {
+    float: left;
+    overflow: hidden;
+  }
+
+  .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
 </style>
