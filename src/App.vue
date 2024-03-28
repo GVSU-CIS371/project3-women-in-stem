@@ -34,6 +34,11 @@
           <option v-for="base in baseBeverages" :key="base" :value="base">{{ base }}</option>
         </select>
       </div>
+      <div class="form-item">
+        <label for="recipe-name">Make Beverage:</label>
+        <input id="recipe-name" type="text" v-model="recipeName" placeholder="Enter recipe name:" />
+      </div>
+      <button @click="saveRecipe">Save Recipe</button>
     </div>
   </div>
 </template>
@@ -41,9 +46,14 @@
 <script setup lang="ts">
 import { useBeverageStore } from './stores/beverages';
 import Beverage from './components/Beverage.vue';
+import { ref } from 'vue';
+//import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 // Initialize the store
 const store = useBeverageStore();
+
+// initialize the recipe name reactive
+const recipeName = ref('');
 
 // Static lists for the options. These are constants and do not need to be reactive.
 const temps = ['Hot', 'Cold'];
@@ -51,9 +61,27 @@ const Creamers = ['None', 'Milk', 'Cream', 'Half & Half'];
 const Syrups = ['None', 'Vanilla', 'Caramel', 'Hazelnut'];
 const baseBeverages = ['Coffee', 'Green Tea', 'Black Tea'];
 
-
-
+//save the recipe
+const saveRecipe = () => {
+  if (!recipeName.value.trim()) {
+    alert('Please enter a recipe name.');
+    return;
+  }
+  store.$patch((state: any) => {
+    state.recipes.push({ 
+      name: recipeName.value,
+      temp: store.currentTemp,
+      creamer: store.currentCreamer,
+      syrup: store.currentSyrup,
+      baseBeverage: store.currentBaseBeverage,
+    });
+    
+  });
+  //reset the recipe name after saving
+  recipeName.value = '';
+};
 </script>
+
 <style lang="scss">
 body,
 html {
