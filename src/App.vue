@@ -35,13 +35,14 @@
         </select>
       </div>
       <div class="form-item">
-        <label for="recipe-name">Make Beverage:</label>
+        <label for="recipe-name">Beverage Name:</label>
         <input id="recipe-name" type="text" v-model="recipeName" placeholder="Enter recipe name:" />
       </div>
       <div>
         <h2>Saved Recipes:</h2>
         <ul>
-          <li v-for="(recipe, index) in store.recipes" :key="index" @click="showBeverage(recipe)">
+          <li v-for="(recipe, index) in store.recipes" :key="index">
+            <button @click="showBeverage(recipe)"></button>
             {{ recipe.name }}
           </li>
         </ul>
