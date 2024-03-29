@@ -38,6 +38,14 @@
         <label for="recipe-name">Make Beverage:</label>
         <input id="recipe-name" type="text" v-model="recipeName" placeholder="Enter recipe name:" />
       </div>
+      <div>
+        <h2>Saved Recipes:</h2>
+        <ul>
+          <li v-for="(recipe, index) in store.recipes" :key="index" @click="showBeverage(recipe)">
+            {{ recipe.name }}
+          </li>
+        </ul>
+      </div>
       <button @click="saveRecipe">Save Recipe</button>
     </div>
   </div>
@@ -80,6 +88,15 @@ const saveRecipe = () => {
   //reset the recipe name after saving
   recipeName.value = '';
 };
+
+// Set beverage to clicked recipe
+const showBeverage = (recipe: any) => {
+  store.currentTemp = recipe.temp;
+  store.currentCreamer = recipe.creamer;
+  store.currentSyrup = recipe.syrup;
+  store.currentBaseBeverage = recipe.baseBeverage;
+};
+
 </script>
 
 <style lang="scss">
